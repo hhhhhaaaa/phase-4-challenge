@@ -14,8 +14,4 @@ router.get('/', (req, res) => {
   })
 })
 
-router.use((req, res) => {
-  res.status(404).render('common/not_found')
-})
-
 module.exports = router

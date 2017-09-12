@@ -21,9 +21,7 @@ app.use(session({
   secret: 'a challenge approaches',
   resave: false,
   saveUninitialized: true,
-  cookie: {
-    secure: true,
-  },
+  cookie: { secure: true }
 }))
 
 app.use('/', routes)

@@ -74,35 +74,9 @@ router.post('/signin', (req, res) => {
       })
     }
     console.log('Logged in')
-    req.session.email = userEmailInformation
-    return res.redirect('/')
+    req.session.user = userEmailInformation
+    res.redirect('/')
   })
 })
-
-// router.post('/login', (request, response) => {
-//   const loginUsername = request.body.username;
-//   const loginPassword = request.body.password;
-//   Users.findUser(loginUsername)
-//     .then((user) => {
-//       if (!user) {
-//         message = "Username and password don't match";
-//         response.render('users/login', {message});
-//       } else {
-//         bcrypt.compare(loginPassword, user.password)
-//         .then(comparisonResult => {
-//           if (comparisonResult === false) {
-//             message = "Username and password don't match";
-//             response.render('users/login', {message});
-//           } else {
-//             console.log("User logged in");
-//             request.session.user = user;
-//             response.redirect('/contacts');
-//           }
-//         })
-//         .catch(error => console.error(error.message));
-//       }
-//     })
-//     .catch( err => console.log('err', err) );
-// });
 
 module.exports = router

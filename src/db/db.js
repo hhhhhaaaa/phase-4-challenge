@@ -4,6 +4,8 @@ const dbName = 'vinyl'
 const connectionString = process.env.DATABASE_URL || `postgres://localhost:5432/${dbName}`
 const client = new pg.Client(connectionString)
 
+client.connect()
+
 function _query(sql, variables, cb) {
   console.log('QUERY ->', sql.replace(/[\n\s]+/g, ' '), variables)
 
@@ -13,13 +15,12 @@ function _query(sql, variables, cb) {
       console.error(error)
       cb(error)
     } else {
-      console.log('QUERY RESULT ->', JSON.stringify(result.rows))
+      console.log('QUERY ->', JSON.stringify(result.rows))
       cb(error, result.rows)
     }
   })
 }
 
 module.exports = {
-  client,
   _query,
 }

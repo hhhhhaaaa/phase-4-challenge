@@ -1,6 +1,7 @@
 const path = require('path')
 const express = require('express')
 const bodyParser = require('body-parser')
+const session = require('express-session')
 const routes = require('./server/routes')
 
 const port = process.env.PORT || 3000
@@ -13,7 +14,17 @@ app.set('view engine', 'ejs')
 app.set('views', path.join(__dirname, 'views'))
 
 app.use(express.static('public'))
-app.use(bodyParser.urlencoded({extended: false}))
+app.use(bodyParser.urlencoded({
+  extended: false,
+}))
+app.use(session({
+  secret: 'a challenge approaches',
+  resave: false,
+  saveUninitialized: true,
+  cookie: {
+    secure: true,
+  },
+}))
 
 app.use('/', routes)
 

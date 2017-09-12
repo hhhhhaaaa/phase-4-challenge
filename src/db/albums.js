@@ -1,13 +1,11 @@
-const {client, _query} = require('./db')
-
-client.connect()
+const {_query} = require('./db')
 
 function getAlbums(cb) {
-  _query('SELECT * FROM album', [], cb)
+  return _query('SELECT * FROM album', [], cb)
 }
 
 function getAlbumsByID(albumID, cb) {
-  _query('SELECT * FROM album WHERE id = $1', [albumID], cb)
+  return _query('SELECT * FROM album WHERE id = $1', [albumID], cb)
 }
 
 module.exports = {

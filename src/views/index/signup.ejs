@@ -11,15 +11,15 @@
   <form method="POST" action="/signup" class="new-user-form">
     <label>
       <span>Name</span>
-      <input type="text" name="name" />
+      <input type="text" name="name" required/>
     </label>
     <label>
       <span>Email</span>
-      <input type="text" name="email" />
+      <input type="email" name="email" required/>
     </label>
     <label>
       <span>Password</span>
-      <input type="password" name="password" />
+      <input type="password" name="password" required/>
     </label>
     <input type="submit" value="Sign Up">
   </form>

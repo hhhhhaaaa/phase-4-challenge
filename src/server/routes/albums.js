@@ -1,14 +1,13 @@
 const router = require('express').Router()
-const db = require('../../db/albums')
+const albums = require('../../db/albums')
 
 router.get('/:albumID', (req, res) => {
   const albumID = req.params.albumID
-
-  db.getAlbumsByID(albumID, (error, albums) => {
+  albums.getAlbumsByID(albumID, (error, albumsInfo) => {
     if (error) {
       res.status(500).render('error', {error})
     } else {
-      const album = albums[0]
+      const album = albumsInfo[0]
       res.render('albums/album', {album})
     }
   })

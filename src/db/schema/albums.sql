@@ -1,8 +1,7 @@
 INSERT INTO
-  albums (title, artist)
+  album (title, artist)
 VALUES
   ('Malibu', 'Anderson .Paak'),
   ('A Seat at the Table', 'Solange Knowles'),
   ('Melodrama', 'Lorde'),
-  ('In Rainbows', 'Radiohead')
-;
+  ('In Rainbows', 'Radiohead');

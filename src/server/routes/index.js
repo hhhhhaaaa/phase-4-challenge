@@ -33,34 +33,46 @@ router.get('/', (req, res) => {
         })
       })
     })
-  } else {
-    const userSessionID = null
-    const userSession = null
-    reviewsQueries.getReviews((error, reviews) => {
+  }
+  const userSessionID = null
+  const userSession = null
+  reviewsQueries.getReviews((error, reviews) => {
+    if (error) {
+      res.status(500).render('common/error', {
+        error,
+      })
+    }
+    albumsQueries.getAlbums((error, albums) => {
       if (error) {
         res.status(500).render('common/error', {
           error,
         })
       }
-      albumsQueries.getAlbums((error, albums) => {
-        if (error) {
-          res.status(500).render('common/error', {
-            error,
-          })
-        }
-        res.render('index/index', {
-          albums,
-          reviews,
-          userSessionID,
-          userSession,
-        })
+      res.render('index/index', {
+        albums,
+        reviews,
+        userSessionID,
+        userSession,
       })
     })
-  }
+  })
 })
 
 router.get('/signup', (req, res) => {
-  res.render('index/signup')
+  if (req.session.user) {
+    const userSessionID = req.session.user[0].id
+    const userSession = req.session.user[0]
+    res.render('index/signup', {
+      userSessionID,
+      userSession,
+    })
+  }
+  const userSessionID = null
+  const userSession = null
+  res.render('index/signup', {
+    userSessionID,
+    userSession,
+  })
 })
 
 router.post('/signup', (req, res) => {
@@ -91,7 +103,20 @@ router.post('/signup', (req, res) => {
 })
 
 router.get('/signin', (req, res) => {
-  res.render('index/signin')
+  if (req.session.user) {
+    const userSessionID = req.session.user[0].id
+    const userSession = req.session.user[0]
+    res.render('index/signin', {
+      userSessionID,
+      userSession,
+    })
+  }
+  const userSessionID = null
+  const userSession = null
+  res.render('index/signin', {
+    userSessionID,
+    userSession,
+  })
 })
 
 router.post('/signin', (req, res) => {

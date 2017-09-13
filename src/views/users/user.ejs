@@ -1,33 +1,44 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title><%= user.account_name %></title>
+  <title>
+    <%= user.account_name %>
+  </title>
   <link rel="stylesheet" type="text/css" href="/style.css">
   <script type="text/javascript" src="/script.js"></script>
 </head>
+
 <body>
   <% include ../partials/header.ejs %>
   <div class="document-body">
 
-  <h1><%= user.account_name %></h1>
-  <h1><%= user.email %></h1>
-  <h1><%= user.date_joined %></h1>
+    <h1><%= user.account_name %></h1>
+    <h1><%= user.email %></h1>
+    <h1><%= user.date_joined %></h1>
 
-  <h2>Reviews</h2>
+    <h2>Reviews</h2>
 
-  <% reviewsInfo.forEach(function(review) { %>
-    <div>
-      <b><%= review.title %></b>
-      <p><%= review.date_created %></p>
-      <p><%= review.body %></p>
-      <p>By <%= user.account_name%></p>
-      <% if (userSessionID) { %>
-        <% if (review.account_id === userSessionID) { %>
-        <img class="delete-button" src="/images/trash-icon.jpg" alt="Delete">
+    <% reviewsInfo.forEach(function(review) { %>
+      <div>
+        <b><%= review.title %></b>
+        <p>
+          <%= review.date_created %>
+        </p>
+        <p>
+          <%= review.body %>
+        </p>
+        <p>By
+          <%= user.account_name%>
+        </p>
+        <% if (userSessionID) { %>
+          <% if (review.account_id === userSessionID) { %>
+            <button><img class="delete-button" src="/images/trash-icon.jpg" alt="Delete"><button>
+          <% } %>
         <% } %>
-      <% } %>
-    </div>
-    <% }) %>
+      </div>
+      <% }) %>
   </div>
 </body>
+
 </html>

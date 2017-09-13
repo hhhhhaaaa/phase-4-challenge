@@ -58,8 +58,12 @@ router.get('/:albumID', (req, res) => {
 router.get('/:albumID/reviews/new', (req, res) => {
   const albumID = req.params.albumID
   if (req.session.user) {
+    const userSessionID = req.session.user[0].id
+    const userSession = req.session.user[0]
     res.render('reviews/new', {
       albumID,
+      userSessionID,
+      userSession,
     })
   } else {
     return res.status(401).render('common/error', {

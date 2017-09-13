@@ -1,24 +1,28 @@
 <!DOCTYPE html>
 <html>
+
 <head>
   <title>Vinyl</title>
   <link rel="stylesheet" type="text/css" href="/style.css">
   <script type="text/javascript" src="/script.js"></script>
 </head>
+
 <body>
+  <% include ../partials/header.ejs %>
   <div class="document-body">
-  <h2>Sign In</h2>
-  <form method="POST" action="/signin" class="signin-user-form">
-    <label>
-      <span>Email</span>
-      <input type="email" name="email" required/>
-    </label>
-    <label>
-      <span>Password</span>
-      <input type="password" name="password" required/>
-    </label>
-    <input type="submit" value="Sign In">
-  </form>
-  </div.
+    <h2>Sign In</h2>
+    <form method="POST" action="/signin" class="signin-user-form">
+      <label>
+    <span>Email</span>
+    <input type="email" name="email" required/>
+  </label>
+      <label>
+    <span>Password</span>
+    <input type="password" name="password" required/>
+  </label>
+      <input type="submit" value="Sign In">
+    </form>
+  </div>
 </body>
+
 </html>

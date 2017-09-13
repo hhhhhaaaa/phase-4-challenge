@@ -1,7 +1,6 @@
 const router = require('express').Router()
 const albums = require('../../db/albums')
 const reviews = require('../../db/reviews')
-const users = require('../../db/users')
 const {getSimpleDate} = require('../utils')
 
 router.get('/:albumID', (req, res) => {

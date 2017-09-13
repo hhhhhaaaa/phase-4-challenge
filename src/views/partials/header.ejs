@@ -1,5 +1,10 @@
 <nav>
   <h1> Vinyl </h1>
-  <a href="/signup"> Signup </a>
-  <a href="/signin"> Signin </a>
+  <% if(!userSession) { %>
+    <a href="/signup"> Signup </a>
+    <a href="/signin"> Signin </a>
+  <% } else { %>
+    <a href= '/users/<%= userID %>'> Profile </a>
+    <a href="/signout"> Signout </a>
+  <% } %>
 </nav>

@@ -11,16 +11,37 @@ router.use('/albums', albumsRoutes)
 router.use('/users', usersRoutes)
 
 router.get('/', (req, res) => {
-  albumsQueries.getAlbums((error, albums) => {
-    if (error) {
-      res.status(500).render('common/error', {
-        error,
+  if (req.session.user) {
+    const userID = req.session.user.id;
+    const userSession = req.session.user;
+    albumsQueries.getAlbums((error, albums) => {
+      if (error) {
+        res.status(500).render('common/error', {
+          error,
+        })
+      }
+      res.render('index/index', {
+        albums,
+        userID,
+        userSession,
       })
-    }
-    res.render('index/index', {
-      albums,
     })
-  })
+  } else {
+    const userID = null;
+    const userSession = null;
+    albumsQueries.getAlbums((error, albums) => {
+      if (error) {
+        res.status(500).render('common/error', {
+          error,
+        })
+      }
+      res.render('index/index', {
+        albums,
+        userID,
+        userSession,
+      })
+    })
+  }
 })
 
 router.get('/signup', (req, res) => {
@@ -66,17 +87,31 @@ router.post('/signin', (req, res) => {
       return res.status(500).render('common/error', {
         error,
       })
-    } else if (!userEmailInformation || loginPassword !== userEmailInformation[0].password) {
-      return res.status(401).render('common/error', {
-        error: {
-          message: 'Username and password do not match',
-        },
-      })
+    } else if (userEmailInformation[0] !== undefined) {
+      if (loginPassword !== userEmailInformation[0].password) {
+        return res.status(401).render('common/error', {
+          error: {
+            message: 'Username and password do not match',
+          },
+        })
+      }
+      console.log('Logged in')
+      req.session.user = userEmailInformation
+      req.session.save()
+      res.redirect('/')
     }
-    console.log('Logged in')
-    req.session.user = userEmailInformation
-    res.redirect('/')
+    return res.status(401).render('common/error', {
+      error: {
+        message: 'Username and password do not match',
+      },
+    })
   })
+})
+
+router.get('/signout', (req, res) => {
+  req.session.destroy()
+  res.clearCookie('userInformation')
+  res.redirect('/')
 })
 
 module.exports = router

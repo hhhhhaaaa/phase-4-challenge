@@ -24,9 +24,9 @@ app.use(session({
   resave: true,
   saveUninitialized: false,
   cookie: {
-    path    : '/',
+    path: '/',
     httpOnly: false,
-    maxAge  : 24*60*60*1000
+    maxAge: 24 * 60 * 60 * 1000,
   },
 }))
 app.use(cookieParser())

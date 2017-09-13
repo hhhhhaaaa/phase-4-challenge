@@ -12,8 +12,8 @@ router.use('/users', usersRoutes)
 
 router.get('/', (req, res) => {
   if (req.session.user) {
-    const userSessionID = req.session.user[0].id;
-    const userSession = req.session.user[0];
+    const userSessionID = req.session.user[0].id
+    const userSession = req.session.user[0]
     albumsQueries.getAlbums((error, albums) => {
       if (error) {
         res.status(500).render('common/error', {
@@ -27,8 +27,8 @@ router.get('/', (req, res) => {
       })
     })
   } else {
-    const userSessionID = null;
-    const userSession = null;
+    const userSessionID = null
+    const userSession = null
     albumsQueries.getAlbums((error, albums) => {
       if (error) {
         res.status(500).render('common/error', {
@@ -52,12 +52,12 @@ router.post('/signup', (req, res) => {
   const accountInfo = req.body
   const dateToday = new Date()
   const dateJoined = getSimpleDate(dateToday)
-  usersQueries.getUsersByEmail(accountInfo.email, (error, userEmailInformation) => {
+  usersQueries.getUsersByEmail(accountInfo.email, (error, userEmailInfo) => {
     if (error) {
       return res.status(500).render('common/error', {
         error,
       })
-    } else if (userEmailInformation.length > 0) {
+    } else if (userEmailInfo.length > 0) {
       return res.status(401).render('common/error', {
         error: {
           message: 'Email address already exists',
@@ -82,13 +82,13 @@ router.get('/signin', (req, res) => {
 router.post('/signin', (req, res) => {
   const loginEmail = req.body.email
   const loginPassword = req.body.password
-  usersQueries.getUsersByEmail(loginEmail, (error, userEmailInformation) => {
+  usersQueries.getUsersByEmail(loginEmail, (error, userEmailInfo) => {
     if (error) {
       return res.status(500).render('common/error', {
         error,
       })
-    } else if (userEmailInformation[0] !== undefined) {
-      if (loginPassword !== userEmailInformation[0].password) {
+    } else if (userEmailInfo[0] !== undefined) {
+      if (loginPassword !== userEmailInfo[0].password) {
         return res.status(401).render('common/error', {
           error: {
             message: 'Username and password do not match',
@@ -96,9 +96,9 @@ router.post('/signin', (req, res) => {
         })
       }
       console.log('Logged in')
-      req.session.user = userEmailInformation
+      req.session.user = userEmailInfo
       req.session.save()
-      res.redirect(`/users/${userEmailInformation[0].id}`)
+      return res.redirect(`/users/${userEmailInfo[0].id}`)
     }
     return res.status(401).render('common/error', {
       error: {

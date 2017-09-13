@@ -3,12 +3,12 @@ const albumsQueries = require('../../db/albums')
 const albumsRoutes = require('./albums')
 const usersQueries = require('../../db/users')
 const usersRoutes = require('./users')
-const {
-  getSimpleDate,
-} = require('../utils')
+const reviewsRoutes = require('./reviews')
+const {getSimpleDate} = require('../utils')
 
 router.use('/albums', albumsRoutes)
 router.use('/users', usersRoutes)
+router.use('/reviews', reviewsRoutes)
 
 router.get('/', (req, res) => {
   if (req.session.user) {

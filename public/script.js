@@ -1,10 +1,20 @@
-const newUserForm = document.querySelector('.new-user-form')
-const deleteButton = document.querySelector('.delete-button')
-const newReviewButton = document.querySelector('.new-review-button')
-
 document.addEventListener("DOMContentLoaded", function() {
-  console.log('Battlecruiser operational')
-  newReviewButton.addEventListener("click", function() {
-    window.location.href = ('/reviews/new')
-  })
+  const deleteButton = document.querySelector('.delete-button')
+  const newReviewButton = document.querySelector('.new-review-button')
+  const newReviewForm = document.querySelector('.new-review-form')
+
+  console.log('DOM fully operational')
+
+  if (newReviewButton) {
+    newReviewButton.addEventListener("click", function() {
+      console.log(window.location.href)
+      event.preventDefault()
+      window.location = ('http://localhost:3000/reviews/new')
+      localStorage.setItem('albumID', albumID)
+    })
+  }
+
+  if (newReviewForm) {
+    alert(localStorage.getItem('albumID'))
+  }
 });

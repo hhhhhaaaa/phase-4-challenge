@@ -1,33 +1,35 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-  <title>Vinyl : <%= album.title %></title>
+  <title>Vinyl :
+    <%= album.title %>
+  </title>
   <link rel="stylesheet" type="text/css" href="/style.css">
   <script type="text/javascript" src="/script.js"></script>
 </head>
+
 <body>
   <% include ../partials/header.ejs %>
-
-<div class="document-body">
-  <h1><%= album.title %></h1>
-  <em>by <%= album.artist %></em>
-  <h2>Reviews</h2>
-
-  <% reviewsInfo.forEach(function(review) { %>
-    <div>
-      <b><%= album.title %></b>
-      <p><%= review.date_created %></p>
-      <p><%= review.body %></p>
-      <p>By <%= review.account_name%></p>
-      <% if (userSessionID) { %>
-        <% if (review.account_id === userSessionID) { %>
-        <button><img class="delete-button" src="/images/trash-icon.jpg" alt="Delete"><button>
+    <div class="document-body">
+      <h1><%= album.title %></h1>
+      <em>by <%= album.artist %></em>
+      <h2>Reviews</h2>
+      <% reviewsInfo.forEach(function(review) { %>
+        <div>
+          <b><%= album.title %></b>
+          <p><%= review.date_created %></p>
+          <p><%= review.body %></p>
+          <p>By<%= review.account_name%></p>
+          <% if (userSessionID) { %>
+            <% if (review.account_id === userSessionID) { %>
+              <button><img class="delete-button" src="/images/trash-icon.jpg" alt="Delete"><button>
+          <% } %>
         <% } %>
-      <% } %>
+        </div>
+      <% }) %>
+      <button class="new-review-button">Add Review</button>
     </div>
-    <% }) %>
-
-  <button class="new-review-button">Add Review</button>
-</div>
 </body>
+
 </html>

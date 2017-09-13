@@ -15,8 +15,13 @@ body {
   flex: 10;
 }
 
-.first-link, .second-link {
+.flex {
   flex: 1;
+}
+
+.flex-column {
+  flex: 1;
+  flex-direction: column;
 }
 
 .delete-button {

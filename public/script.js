@@ -7,7 +7,6 @@ document.addEventListener("DOMContentLoaded", function() {
 
   if (deleteButton) {
     deleteButton.addEventListener("click", function() {
-      console.log("hello")
     })
   }
 

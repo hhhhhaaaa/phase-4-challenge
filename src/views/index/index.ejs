@@ -24,20 +24,14 @@
       <% reviews.forEach(function(review) { %>
         <div>
           <b><%= review.title %></b>
-          <p>
-            <%= review.date_created %>
-          </p>
-          <p>
-            <%= review.body %>
-          </p>
-          <p>By
-            <%= review.account_name%>
-          </p>
+          <p><%= review.date_created %></p>
+          <p><%= review.body %></p>
+          <p>By <%= review.account_name%></p>
           <% if (userSessionID) { %>
             <% if (review.account_id === userSessionID) { %>
               <button><img class="delete-button" src="/images/trash-icon.jpg" alt="Delete"><button>
-              <% } %>
-                <% } %>
+            <% } %>
+          <% } %>
         </div>
         <% }) %>
     </div>

@@ -14,10 +14,10 @@ CREATE TABLE account (
 
 CREATE TABLE review (
   id SERIAL PRIMARY KEY,
-  body TEXT,
-  date_created DATE,
-  album_id INT,
-  account_id INT,
+  body TEXT NOT NULL,
+  date_created DATE NOT NULL,
+  album_id INT NOT NULL,
+  account_id INT NOT NULL,
   FOREIGN KEY (album_id) REFERENCES album(id),
   FOREIGN KEY (account_id) REFERENCES account(id)
 );

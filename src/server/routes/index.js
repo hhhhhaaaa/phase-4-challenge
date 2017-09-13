@@ -3,42 +3,57 @@ const albumsQueries = require('../../db/albums')
 const albumsRoutes = require('./albums')
 const usersQueries = require('../../db/users')
 const usersRoutes = require('./users')
-const reviewsRoutes = require('./reviews')
+const reviewsQueries = require('../../db/reviews')
 const {getSimpleDate} = require('../utils')
 
 router.use('/albums', albumsRoutes)
 router.use('/users', usersRoutes)
-router.use('/reviews', reviewsRoutes)
 
 router.get('/', (req, res) => {
   if (req.session.user) {
     const userSessionID = req.session.user[0].id
     const userSession = req.session.user[0]
-    albumsQueries.getAlbums((error, albums) => {
+    reviewsQueries.getReviews((error, reviews) => {
       if (error) {
         res.status(500).render('common/error', {
           error,
         })
       }
-      res.render('index/index', {
-        albums,
-        userSessionID,
-        userSession,
+      albumsQueries.getAlbums((error, albums) => {
+        if (error) {
+          res.status(500).render('common/error', {
+            error,
+          })
+        }
+        res.render('index/index', {
+          albums,
+          reviews,
+          userSessionID,
+          userSession,
+        })
       })
     })
   } else {
     const userSessionID = null
     const userSession = null
-    albumsQueries.getAlbums((error, albums) => {
+    reviewsQueries.getReviews((error, reviews) => {
       if (error) {
         res.status(500).render('common/error', {
           error,
         })
       }
-      res.render('index/index', {
-        albums,
-        userSessionID,
-        userSession,
+      albumsQueries.getAlbums((error, albums) => {
+        if (error) {
+          res.status(500).render('common/error', {
+            error,
+          })
+        }
+        res.render('index/index', {
+          albums,
+          reviews,
+          userSessionID,
+          userSession,
+        })
       })
     })
   }

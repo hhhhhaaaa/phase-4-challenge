@@ -9,11 +9,11 @@ function getReviews(cb) {
 }
 
 function getReviewsByAlbumID(albumID, cb) {
-  return _query('SELECT * FROM review WHERE album_id = $1', [albumID], cb)
+  return _query('SELECT review.*, account.account_name FROM review JOIN account ON account.id = review.account_id WHERE album_id = $1 ORDER BY review.id DESC', [albumID], cb)
 }
 
 function getReviewsByUserID(userID, cb) {
-  return _query('SELECT * FROM review WHERE user_id = $1', [userID], cb)
+  return _query('SELECT review.*, album.title FROM review JOIN album ON album.id = review.album_id WHERE account_id = $1 ORDER BY review.id DESC;', [userID], cb)
 }
 
 module.exports = {

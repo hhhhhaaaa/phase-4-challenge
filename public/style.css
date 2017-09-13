@@ -1,5 +1,39 @@
-html, body {
-  margin: 0;
-  padding: 0;
-  width: 100vw;
+body {
+  display: flex;
+  flex-direction: column;
+}
+
+.header-bar {
+  border-bottom: 1px solid black;
+  display: flex;
+  flex-direction: row;
+  justify-content: space-around;
+  align-items: center;
+}
+
+.header-title {
+  flex: 10;
+}
+
+.first-link, .second-link {
+  flex: 1;
+}
+
+.document-body {
+  display: flex;
+  align-items: flex-start;
+}
+
+.vinyl-image {
+  flex-direction: row;
+  max-width: 100%;
+  max-height: 50vh;
+}
+
+.album-list {
+  flex: 4;
+}
+
+.review-list {
+  flex: 8;
 }

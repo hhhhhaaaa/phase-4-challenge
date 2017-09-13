@@ -13,8 +13,6 @@ router.get('/:userID', (req, res) => {
         })
       } else {
         const user = userInfo[0]
-        console.log(user)
-        console.log('dateJoined')
         res.render('users/user', {
           user,
           userSessionID,
@@ -32,7 +30,6 @@ router.get('/:userID', (req, res) => {
         })
       } else {
         const user = userInfo[0]
-        console.log('dateJoined')
         res.render('users/user', {
           user,
           userSessionID,

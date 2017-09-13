@@ -9,12 +9,8 @@ document.addEventListener("DOMContentLoaded", function() {
     newReviewButton.addEventListener("click", function() {
       console.log(window.location.href)
       event.preventDefault()
-      window.location = ('http://localhost:3000/reviews/new')
+      window.location = (window.location.href + '/reviews/new')
       localStorage.setItem('albumID', albumID)
     })
-  }
-
-  if (newReviewForm) {
-    alert(localStorage.getItem('albumID'))
   }
 });

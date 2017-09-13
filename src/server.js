@@ -2,6 +2,7 @@ const path = require('path')
 const express = require('express')
 const bodyParser = require('body-parser')
 const session = require('express-session')
+const cookieParser = require('cookie-parser')
 const routes = require('./server/routes')
 
 const port = process.env.PORT || 3000
@@ -18,11 +19,17 @@ app.use(bodyParser.urlencoded({
   extended: false,
 }))
 app.use(session({
+  name: 'userInformation',
   secret: 'a challenge approaches',
-  resave: false,
-  saveUninitialized: true,
-  cookie: { secure: true }
-}))
+  resave: true,
+  saveUninitialized: false,
+  cookie: {
+    path    : '/',
+    httpOnly: false,
+    maxAge  : 24*60*60*1000
+  },
+}));
+app.use(cookieParser())
 
 app.use('/', routes)
 

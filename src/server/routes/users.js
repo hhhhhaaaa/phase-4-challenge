@@ -4,12 +4,12 @@ const users = require('../../db/users')
 router.get('/:userID', (req, res) => {
   const userID = req.params.userID
   if (req.session.user) {
-    const userSessionID = req.session.user[0].id;
-    const userSession = req.session.user[0];
+    const userSessionID = req.session.user[0].id
+    const userSession = req.session.user[0]
     users.getUsersByID(userID, (error, userInfo) => {
       if (error) {
         res.status(500).render('common/error', {
-          error
+          error,
         })
       } else {
         const user = userInfo[0]
@@ -23,12 +23,12 @@ router.get('/:userID', (req, res) => {
       }
     })
   } else {
-    const userSessionID = null;
-    const userSession = null;
+    const userSessionID = null
+    const userSession = null
     users.getUsersByID(userID, (error, userInfo) => {
       if (error) {
         res.status(500).render('common/error', {
-          error
+          error,
         })
       } else {
         const user = userInfo[0]

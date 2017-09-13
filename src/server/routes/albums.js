@@ -1,6 +1,7 @@
 const router = require('express').Router()
 const albums = require('../../db/albums')
 const reviews = require('../../db/reviews')
+const users = require('../../db/users')
 const {getSimpleDate} = require('../utils')
 
 router.get('/:albumID', (req, res) => {
@@ -13,50 +14,46 @@ router.get('/:albumID', (req, res) => {
         res.status(500).render('common/error', {
           error,
         })
-      } else {
-        reviews.getReviewsByAlbumID(albumID, (error, reviewsInfo) => {
-          if (error) {
-            res.status(500).render('common/error', {
-              error,
-            })
-            const album = albumsInfo[0]
-            res.render('albums/album', {
-              album,
-              userSessionID,
-              userSession,
-              reviewsInfo,
-            })
-          }
-        })
       }
+      const album = albumsInfo[0]
+      reviews.getReviewsByAlbumID(album.id, (error, reviewsInfo) => {
+        if (error) {
+          res.status(500).render('common/error', {
+            error,
+          })
+        }
+        res.render('albums/album', {
+          album,
+          userSessionID,
+          userSession,
+          reviewsInfo,
+        })
+      })
     })
-  } else {
-    const userSessionID = null
-    const userSession = null
-    albums.getAlbumsByID(albumID, (error, albumsInfo) => {
+  }
+  const userSessionID = null
+  const userSession = null
+  albums.getAlbumsByID(albumID, (error, albumsInfo) => {
+    if (error) {
+      res.status(500).render('common/error', {
+        error,
+      })
+    }
+    const album = albumsInfo[0]
+    reviews.getReviewsByAlbumID(album.id, (error, reviewsInfo) => {
       if (error) {
         res.status(500).render('common/error', {
           error,
         })
-      } else {
-        reviews.getReviewsByAlbumID(albumID, (error, reviewsInfo) => {
-          if (error) {
-            res.status(500).render('common/error', {
-              error,
-            })
-            console.log(reviewsInfo);
-            const album = albumsInfo[0]
-            res.render('albums/album', {
-              album,
-              userSessionID,
-              userSession,
-              reviewsInfo,
-            })
-          }
-        })
       }
+      res.render('albums/album', {
+        album,
+        userSessionID,
+        userSession,
+        reviewsInfo,
+      })
     })
-  }
+  })
 })
 
 router.get('/:albumID/reviews/new', (req, res) => {

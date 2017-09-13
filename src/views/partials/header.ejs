@@ -1,10 +1,10 @@
 <nav class="header-bar">
   <h1 class="header-title"> Vinyl </h1>
   <% if(!userSession) { %>
-    <h1 class="first-link"><a href="/signup"> Signup </a></h1>
-    <h1 class="second-link"><a href="/signin"> Signin </a></h1>
+    <h1 class="flex"><a href="/signup"> Signup </a></h1>
+    <h1 class="flex"><a href="/signin"> Signin </a></h1>
     <% } else { %>
-      <h1 class="first-link"><a href= "/users/<%= userSessionID %>"> Profile </a></h1>
-      <h1 class="second-link"><a href="/signout"> Signout </a></h1>
+      <h1 class="flex"><a href= "/users/<%= userSessionID %>"> Profile </a></h1>
+      <h1 class="flex"><a href="/signout"> Signout </a></h1>
     <% } %>
 </nav>

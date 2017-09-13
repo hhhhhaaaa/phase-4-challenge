@@ -12,8 +12,8 @@ router.use('/users', usersRoutes)
 
 router.get('/', (req, res) => {
   if (req.session.user) {
-    const userID = req.session.user.id;
-    const userSession = req.session.user;
+    const userSessionID = req.session.user[0].id;
+    const userSession = req.session.user[0];
     albumsQueries.getAlbums((error, albums) => {
       if (error) {
         res.status(500).render('common/error', {
@@ -22,12 +22,12 @@ router.get('/', (req, res) => {
       }
       res.render('index/index', {
         albums,
-        userID,
+        userSessionID,
         userSession,
       })
     })
   } else {
-    const userID = null;
+    const userSessionID = null;
     const userSession = null;
     albumsQueries.getAlbums((error, albums) => {
       if (error) {
@@ -37,7 +37,7 @@ router.get('/', (req, res) => {
       }
       res.render('index/index', {
         albums,
-        userID,
+        userSessionID,
         userSession,
       })
     })
@@ -98,7 +98,7 @@ router.post('/signin', (req, res) => {
       console.log('Logged in')
       req.session.user = userEmailInformation
       req.session.save()
-      res.redirect('/')
+      res.redirect(`/users/${userEmailInformation[0].id}`)
     }
     return res.status(401).render('common/error', {
       error: {

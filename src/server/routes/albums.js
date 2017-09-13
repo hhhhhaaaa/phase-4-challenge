@@ -2,10 +2,10 @@ const router = require('express').Router()
 const albums = require('../../db/albums')
 
 router.get('/:albumID', (req, res) => {
+  const albumID = req.params.albumID
   if (req.session.user) {
-    const userID = req.session.user.id;
-    const userSession = req.session.user;
-    const albumID = req.params.albumID
+    const userSessionID = req.session.user[0].id;
+    const userSession = req.session.user[0];
     albums.getAlbumsByID(albumID, (error, albumsInfo) => {
       if (error) {
         res.status(500).render('error', {
@@ -15,15 +15,14 @@ router.get('/:albumID', (req, res) => {
         const album = albumsInfo[0]
         res.render('albums/album', {
           album,
-          userID,
+          userSessionID,
           userSession,
         })
       }
     })
   } else {
-    const userID = null;
+    const userSessionID = null;
     const userSession = null;
-    const albumID = req.params.albumID
     albums.getAlbumsByID(albumID, (error, albumsInfo) => {
       if (error) {
         res.status(500).render('error', {
@@ -33,7 +32,7 @@ router.get('/:albumID', (req, res) => {
         const album = albumsInfo[0]
         res.render('albums/album', {
           album,
-          userID,
+          userSessionID,
           userSession,
         })
       }

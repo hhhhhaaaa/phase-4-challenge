@@ -5,9 +5,14 @@ document.addEventListener("DOMContentLoaded", function() {
 
   console.log('DOM fully operational')
 
+  if (deleteButton) {
+    deleteButton.addEventListener("click", function() {
+      console.log("hello")
+    })
+  }
+
   if (newReviewButton) {
     newReviewButton.addEventListener("click", function() {
-      console.log(window.location.href)
       event.preventDefault()
       window.location = (window.location.href + '/reviews/new')
       localStorage.setItem('albumID', albumID)

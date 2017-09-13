@@ -4,12 +4,13 @@
 <head>
   <title>Vinyl</title>
   <link rel="stylesheet" type="text/css" href="/style.css">
+  <script type="text/javascript" src="/script.js"></script>
 </head>
 
 <body>
   <% include ../partials/header.ejs %>
     <div class="document-body">
-      <img class="vinyl-image" src="images/vinylrecord.jpg" alt="Vinyl">
+      <img class="vinyl-image" src="images/vinyl-record.jpg" alt="Vinyl">
       <h2>Records</h2>
       <div class="album-list">
         <% albums.forEach(function(album) { %>
@@ -22,14 +23,19 @@
       <div class="review-list">
         <% reviews.forEach(function(review) { %>
           <div>
-            <p>
-              <%= review.body %>
-            </p>
+            <b><%= review.title %></b>
+            <p><%= review.date_created %></p>
+            <p><%= review.body %></p>
+            <p>By <%= review.account_name%></p>
+            <% if (userSessionID) { %>
+              <% if (review.account_id === userSessionID) { %>
+              <img class="delete-button" src="/images/trash-icon.jpg" alt="Delete">
+              <% } %>
+            <% } %>
           </div>
           <% }) %>
       </div>
     </div>
-    <script type="text/javascript" src="/script.js"></script>
 </body>
 
 </html>

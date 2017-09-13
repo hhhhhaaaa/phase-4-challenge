@@ -5,7 +5,7 @@ function createReview(reviewInfo, dateCreated, albumID, userID, cb) {
 }
 
 function getReviews(cb) {
-  return _query('SELECT * FROM review ORDER BY id DESC LIMIT 3', [], cb)
+  return _query('SELECT review.*, album.title, account.account_name FROM review JOIN album ON album.id = review.album_id JOIN account ON account.id = review.account_id ORDER BY review.id DESC LIMIT 3;', [], cb)
 }
 
 function getReviewsByAlbumID(albumID, cb) {

@@ -41,7 +41,6 @@ router.get('/', (req, res) => {
         userSession,
       })
     })
-
   }
 })
 
@@ -88,9 +87,8 @@ router.post('/signin', (req, res) => {
       return res.status(500).render('common/error', {
         error,
       })
-    } else if (userEmailInformation) {
+    } else if (userEmailInformation[0] !== undefined) {
       if (loginPassword !== userEmailInformation[0].password) {
-        console.log("Three");
         return res.status(401).render('common/error', {
           error: {
             message: 'Username and password do not match',
@@ -98,7 +96,6 @@ router.post('/signin', (req, res) => {
         })
       }
       console.log('Logged in')
-      console.log(userEmailInformation)
       req.session.user = userEmailInformation
       req.session.save()
       res.redirect('/')
@@ -112,8 +109,8 @@ router.post('/signin', (req, res) => {
 })
 
 router.get('/signout', (req, res) => {
-  console.log('hello');
-  req.session.destroy();
+  req.session.destroy()
+  res.clearCookie('userInformation')
   res.redirect('/')
 })
 

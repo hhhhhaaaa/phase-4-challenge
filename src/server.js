@@ -28,7 +28,7 @@ app.use(session({
     httpOnly: false,
     maxAge  : 24*60*60*1000
   },
-}));
+}))
 app.use(cookieParser())
 
 app.use('/', routes)
